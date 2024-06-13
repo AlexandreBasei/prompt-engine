@@ -1,6 +1,7 @@
 # prompt-engine
 Projet visant à explorer le prompt engineering et l'intégration d'un chatbot utilisant Chat-GPT sur un site web
 ## Installation
+- Ouvrir un terminal dans le dossier où vous voulez importer le projet, puis exécuter les commandes suivantes :
 - git clone https://github.com/AlexandreBasei/prompt-engine.git
 - cd prompt-engine
 - npm install
