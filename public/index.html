@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #chatbox { width: 300px; height: 400px; border: 1px solid #ccc; padding: 10px; overflow-y: scroll; }
+    #message { width: 80%; }
+    #send { width: 18%; }
+  </style>
+</head>
+<body>
+  <div id="chatbox"></div>
+  <input type="text" id="message" placeholder="Type a message..." />
+  <button id="send">Send</button>
+
+  <script>
+    const chatbox = document.getElementById('chatbox');
+    const messageInput = document.getElementById('message');
+    const sendButton = document.getElementById('send');
+
+    sendButton.addEventListener('click', async () => {
+      const userMessage = messageInput.value;
+      appendMessage('You', userMessage);
+      messageInput.value = '';
+
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage })
+      });
+      const data = await response.json();
+      appendMessage('Bot', data.reply);
+    });
+
+    function appendMessage(sender, message) {
+      const messageElement = document.createElement('div');
+      messageElement.textContent = `${sender}: ${message}`;
+      chatbox.appendChild(messageElement);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
